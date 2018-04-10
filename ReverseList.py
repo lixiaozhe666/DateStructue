@@ -8,7 +8,8 @@ class stack:
         self.l.append(value)
 
     def outstack(self):
-        self.l.pop(-1)
+
+        return self.l.pop(-1)
 
     def printstack(self):
         print (self.l)
@@ -23,6 +24,7 @@ class Node:
 class Link:
     def __init__(self):
         self.head = Node(None)
+        self.length =0;
 
     def appendLink(self,value):
         if isinstance(value,Node):
@@ -36,6 +38,7 @@ class Link:
             while p.pNext != None:
                 p=p.pNext
             p.pNext = node
+        self.length +=1
 
     def deleteLink(self,value = -1):
         if self.head.pNext ==None:
@@ -58,22 +61,49 @@ class Link:
                 q = p;
                 p = p.pNext
             q.pNext = p.pNext
+        self.length -= 1
+
+    def reverseLink(self):#使用栈
+        if self.head.pNext ==None:
+            return print('link is null')
+        p = self.head.pNext
+        tempLink = stack()
+        i=1
+        while i<=self.length:
+            tempLink.instack(p.value)
+            p = p.pNext
+            i +=1
+        i=1
+        tempLink.printstack()
+        p = self.head
+        while i<=self.length:
+            temp = Node()
+            temp.value = tempLink.outstack()
+            p.pNext =temp
+            p=temp
+            i+=1
+
+
+
 
 
 
     def printLink(self):
         p = self.head
         while p.pNext != None:
-            print(p.value)
+
             p = p.pNext
-        print(p.value)
+            print(p.value)
+
 
 
 l=Link()
 l.appendLink(1)
 l.appendLink(2)
 l.appendLink(3)
-l.deleteLink(3)
+l.appendLink('2222dddd2')
+l.printLink()
+l.reverseLink()
 l.printLink()
 
 
